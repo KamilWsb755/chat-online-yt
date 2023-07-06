@@ -32,7 +32,7 @@ const Register = () => {
                             email,
                             photoURL:downloadURL,
                         })
-                        console.log(res);
+                        await setDoc(doc(db,"usersChats", res.user.uid), {})
                     }catch(err){
                         console.log(err);
                         setErr(true);
