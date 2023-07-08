@@ -5,8 +5,10 @@ import {createUserWithEmailAndPassword, updateProfile} from 'firebase/auth'
 import {getDownloadURL, ref, uploadBytes, uploadBytesResumable} from "firebase/storage";
 import {doc, setDoc} from 'firebase/firestore'
 import {useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom'
 
 const Register = () => {
+    const navigate = useNavigate();
     const [err, setErr] = useState(false);
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -33,6 +35,7 @@ const Register = () => {
                             photoURL:downloadURL,
                         })
                         await setDoc(doc(db,"usersChats", res.user.uid), {})
+                        navigate("/")
                     }catch(err){
                         console.log(err);
                         setErr(true);
@@ -61,7 +64,7 @@ const Register = () => {
             <button>Sign up</button>
             {err && <span>Something went wrong</span>}
         </form>
-            <p>You have an account? Login</p>
+            <p>You have an account? <Link to="/login">Login</Link></p>
     </div>
 </div>  
 )
